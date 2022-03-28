@@ -70,6 +70,12 @@ files:
     \ less than the first linear search time.\");\n            }\n        }\n    \
     \    \n        return CheckResult.correct();\n    }\n}\n"
   learner_created: false
+- name: src/phonebook/Contact.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5483#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Mon, 28 Mar 2022 19:40:06 UTC
+record: 2
