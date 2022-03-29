@@ -72,6 +72,30 @@ files:
     \ + \"ms\");\n        }\n        \n        return CheckResult.correct();\n   \
     \ }\n}\n"
   learner_created: false
+- name: src/phonebook/Contact.java
+  visible: true
+  text: |
+    package phonebook;
+
+    public class Contact {
+        private final String name;
+        private final int phoneNumber;
+
+        public Contact(String name, int phoneNumber) {
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+        }
+
+
+        public String getName() {
+            return name;
+        }
+
+        public int getPhoneNumber() {
+            return phoneNumber;
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5484#comment
 status: Unchecked
-record: -1
+record: 3
