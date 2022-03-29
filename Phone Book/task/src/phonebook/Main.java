@@ -9,6 +9,8 @@ import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
     private static final String DIR_PATH = "D:\\7-Learn\\Java\\HyperSkill\\Phone Book\\Phone Book\\assest\\directory.txt";
     private static final String FIND_PATH = "D:\\7-Learn\\Java\\HyperSkill\\Phone Book\\Phone Book\\assest\\find.txt";
@@ -18,10 +20,12 @@ public class Main {
     private static final HashSet<String> findNames = new HashSet<>();
     private static ArrayList<Contact> sortedContacts = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         applyLinearSearch();
         System.out.println();
         applyJumpSearch();
+        System.out.println();
+        binarySearch();
     }
 
     private static void readFiles() {
@@ -131,6 +135,47 @@ public class Main {
         }
         // Target element not found. Return negative integer as element position.
         return false;
+    }
+
+
+    private static void binarySearch() throws IOException, InterruptedException {
+        System.out.println("Start searching (quick sort + binary search)...");
+
+        var tSort1 = Instant.now();
+        sort();
+        sleep(1000);
+        var tSort2 = Instant.now();
+        var sortDuration = Duration.between(tSort1, tSort2);
+        var t1 = Instant.now();
+        var sortedNames = sortedContacts.stream()
+                .map(Contact::getName)
+                .toArray();
+
+        int found = 0;
+        for (var name : findNames) {
+            if (Arrays.binarySearch(sortedNames, name) != -1) {
+                found++;
+            }
+        }
+
+        var t2 = Instant.now();
+        var searchDuration = Duration.between(t1, t2);
+
+        var fullDuration = Duration.between(tSort1, t2);
+        System.out.println("Found " + found + " / " + findNames.size() + " entries. Time taken: "
+                + fullDuration.toMinutesPart() + " min. "
+                + fullDuration.toSecondsPart() + " sec. "
+                + fullDuration.toMillisPart() + " ms.");
+
+        System.out.println("Sorting time:  "
+                + sortDuration.toMinutesPart() + " min. "
+                + sortDuration.toSecondsPart() + " sec. "
+                + sortDuration.toMillisPart() + " ms.");
+
+        System.out.println("Searching time:  "
+                + searchDuration.toMinutesPart() + " min. "
+                + searchDuration.toSecondsPart() + " sec. "
+                + searchDuration.toMillisPart() + " ms.");
     }
 
     private static void sort() throws IOException {
